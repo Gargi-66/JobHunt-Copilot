@@ -13,3 +13,4 @@ function AuthAnimation({ theme }) {
 }  
 
 export default AuthAnimation;
+
