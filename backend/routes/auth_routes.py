@@ -10,9 +10,10 @@ from models import User
 
 from schemas import UserSignup
 
-from auth import pwd_context, SECRET_KEY
+from auth import ( hash_password, verify_password, SECRET_KEY )
 
 from jose import jwt
+
 
 
 router = APIRouter(
@@ -44,6 +45,12 @@ def signup(user: UserSignup):
             detail="Password is required."
         )
 
+    if len(clean_password.encode("utf-8")) > 72:
+        raise HTTPException( 
+            status_code=400,
+             detail="Password must be 72 bytes or fewer." 
+            )
+    
     with Session(engine) as session:
 
         existing_user = session.exec(
@@ -61,9 +68,9 @@ def signup(user: UserSignup):
                 detail="An account with this email already exists."
             )
 
-        hashed_password = pwd_context.hash(
-            clean_password
-        )
+        hashed_password = hash_password(
+             clean_password 
+             )
 
         new_user = User(
             email=clean_email,
@@ -106,6 +113,12 @@ def login(
             detail="Email and password are required."
         )
 
+    if len(clean_password.encode("utf-8")) > 72:
+        raise HTTPException(
+             status_code=401, 
+             detail="Invalid email or password." 
+             )
+    
     with Session(engine) as session:
 
         db_user = session.exec(
@@ -123,7 +136,7 @@ def login(
                 detail="Invalid email or password."
             )
 
-        if not pwd_context.verify(
+        if not verify_password(
             clean_password,
             db_user.password_hash
         ):

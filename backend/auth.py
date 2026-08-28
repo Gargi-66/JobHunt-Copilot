@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordBearer
 
 from jose import jwt, JWTError
 
-from passlib.context import CryptContext
+import bcrypt
 
 import os
 
@@ -25,10 +25,51 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # PASSWORD HASHING
 # =========================
 
-pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto"
-)
+# =========================================================
+# PASSWORD HASHING
+# =========================================================
+
+def hash_password(password: str) -> str:
+    """
+    Converts a plain-text password into a secure bcrypt hash.
+    """
+
+    password_bytes = password.encode("utf-8")
+
+    # bcrypt only supports passwords up to 72 bytes.
+    if len(password_bytes) > 72:
+        raise ValueError(
+            "Password cannot be longer than 72 bytes."
+        )
+
+    hashed_password = bcrypt.hashpw(
+        password_bytes,
+        bcrypt.gensalt()
+    )
+
+    return hashed_password.decode("utf-8")
+
+
+def verify_password(
+    password: str,
+    hashed_password: str
+) -> bool:
+    """
+    Checks whether a plain-text password
+    matches the stored bcrypt hash.
+    """
+
+    password_bytes = password.encode("utf-8")
+    hashed_password_bytes = hashed_password.encode("utf-8")
+
+    if len(password_bytes) > 72:
+        return False
+
+    return bcrypt.checkpw(
+        password_bytes,
+        hashed_password_bytes
+    )
+
 
 
 # =========================
