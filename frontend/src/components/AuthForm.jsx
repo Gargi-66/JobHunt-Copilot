@@ -39,7 +39,7 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/signup",
+        "https://job-hunt-copilot-backend.onrender.com/signup",
         {
           method: "POST",
 
@@ -126,7 +126,7 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       formData.append("password", password);
 
       const response = await fetch(
-        "http://127.0.0.1:8000/login",
+        "https://job-hunt-copilot-backend.onrender.com/login",
         {
           method: "POST",
 

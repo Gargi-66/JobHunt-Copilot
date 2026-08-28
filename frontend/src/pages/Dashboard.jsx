@@ -58,7 +58,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/applications",
+        "https://job-hunt-copilot-backend.onrender.com/applications",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -125,7 +125,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/applications",
+        "https://job-hunt-copilot-backend.onrender.com/applications",
         {
           method: "POST",
 
@@ -186,7 +186,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/${applicationId}`,
+        `https://job-hunt-copilot-backend.onrender.com/applications/${applicationId}`,
         {
           method: "PUT",
 
@@ -244,7 +244,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        `http://127.0.0.1:8000/applications/${applicationId}`,
+        `https://job-hunt-copilot-backend.onrender.com/applications/${applicationId}`,
         {
           method: "DELETE",
 
@@ -299,7 +299,7 @@ function Dashboard() {
       setInterviewPrepError("");
 
       const response = await fetch(
-        "http://127.0.0.1:8000/analyze-jd",
+        "https://job-hunt-copilot-backend.onrender.com/analyze-jd",
         {
           method: "POST",
 
@@ -357,7 +357,7 @@ function Dashboard() {
       setInterviewPrep(null);
 
       const response = await fetch(
-        "http://127.0.0.1:8000/interview-prep",
+        "https://job-hunt-copilot-backend.onrender.com/interview-prep",
         {
           method: "POST",
 
