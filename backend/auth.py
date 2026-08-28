@@ -6,7 +6,11 @@ from jose import jwt, JWTError
 
 from passlib.context import CryptContext
 
+import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
 # =========================
 # JWT AUTHENTICATION
 # =========================
@@ -15,8 +19,7 @@ OAuth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/login"
 )
 
-SECRET_KEY = "your-secret-key"
-
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # =========================
 # PASSWORD HASHING
