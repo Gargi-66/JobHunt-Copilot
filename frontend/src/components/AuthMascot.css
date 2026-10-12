@@ -1,0 +1,1255 @@
+/* =========================================================
+   CAREER COMPANION MASCOT
+   Original floppy-eared beagle-style character
+   ========================================================= */
+
+   .animation-panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  
+  .animation-panel h2,
+  .animation-panel p {
+    position: relative;
+    z-index: 5;
+  }
+  
+  .animation-panel .career-companion-copy {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    max-width: 420px;
+  }
+  
+  .companion-label {
+    display: inline-block;
+  
+    margin-bottom: 10px;
+  
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+  
+    text-transform: uppercase;
+  
+    opacity: 0.72;
+  }
+  
+  .career-companion-copy h2 {
+    margin-bottom: 12px;
+  }
+  
+  .career-companion-copy p {
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+  }
+  
+  
+  /* =========================================================
+     DECORATIVE BACKGROUND
+     ========================================================= */
+  
+  .mascot-background {
+    position: absolute;
+  
+    inset: 0;
+  
+    pointer-events: none;
+  
+    z-index: 1;
+  }
+  
+  .floating-decoration {
+    position: absolute;
+  
+    display: block;
+  
+    font-size: 18px;
+    font-weight: 700;
+  
+    opacity: 0.55;
+  
+    animation: decoration-float 5s ease-in-out infinite;
+  }
+  
+  .decoration-one {
+    top: 13%;
+    left: 13%;
+  
+    animation-delay: -1s;
+  }
+  
+  .decoration-two {
+    top: 24%;
+    right: 14%;
+  
+    animation-delay: -3s;
+  }
+  
+  .decoration-three {
+    top: 53%;
+    left: 8%;
+  
+    font-size: 13px;
+  
+    animation-delay: -2s;
+  }
+  
+  .decoration-four {
+    bottom: 22%;
+    right: 13%;
+  
+    font-size: 24px;
+  
+    animation-delay: -4s;
+  }
+  
+  .decoration-five {
+    bottom: 12%;
+    left: 19%;
+  
+    font-size: 14px;
+  
+    animation-delay: -1.5s;
+  }
+  
+  .decoration-six {
+    top: 9%;
+    right: 30%;
+  
+    font-size: 11px;
+  
+    animation-delay: -2.5s;
+  }
+  
+  @keyframes decoration-float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  
+    50% {
+      transform: translateY(-10px) rotate(8deg);
+    }
+  }
+  
+  
+  /* =========================================================
+     MASCOT VISUAL AREA
+     ========================================================= */
+  
+  .animation-panel .copilot-visual {
+    position: relative;
+  
+    width: 210px;
+    height: 220px;
+  
+    margin-top: 22px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    border-radius: 0;
+  
+    z-index: 4;
+  
+    overflow: visible;
+  }
+  
+  .mascot-glow {
+    position: absolute;
+  
+    width: 150px;
+    height: 55px;
+  
+    bottom: 5px;
+  
+    border-radius: 50%;
+  
+    opacity: 0.25;
+  
+    filter: blur(12px);
+  
+    animation: mascot-shadow 3s ease-in-out infinite;
+  }
+  
+  .career-mascot {
+    position: relative;
+  
+    width: 150px;
+    height: 190px;
+  
+    animation: mascot-idle 3.2s ease-in-out infinite;
+  
+    transform-origin: center bottom;
+  }
+  
+  
+  /* =========================================================
+     EARS
+     ========================================================= */
+  
+  .mascot-ear {
+    position: absolute;
+  
+    top: 27px;
+  
+    width: 54px;
+    height: 95px;
+  
+    background: #6b4039;
+  
+    border-radius: 55% 45% 55% 45%;
+  
+    z-index: 1;
+  
+    transform-origin: top center;
+  
+    transition:
+      transform 0.45s ease,
+      height 0.45s ease;
+  }
+  
+  .mascot-ear-left {
+    left: -6px;
+  
+    transform: rotate(20deg);
+  }
+  
+  .mascot-ear-right {
+    right: -6px;
+  
+    transform: rotate(-20deg);
+  }
+  
+  
+  /* =========================================================
+     HEAD
+     ========================================================= */
+  
+  .mascot-head {
+    position: absolute;
+  
+    top: 12px;
+    left: 23px;
+  
+    width: 104px;
+    height: 92px;
+  
+    background: #f4d7b8;
+  
+    border: 3px solid rgba(78, 42, 39, 0.12);
+  
+    border-radius: 48% 48% 46% 46%;
+  
+    z-index: 3;
+  
+    box-shadow:
+      0 8px 18px rgba(63, 34, 35, 0.13);
+  }
+  
+  .mascot-face-patch {
+    position: absolute;
+  
+    top: -2px;
+    left: 28px;
+  
+    width: 48px;
+    height: 58px;
+  
+    background: #fff4e8;
+  
+    border-radius: 50% 50% 45% 45%;
+  
+    opacity: 0.82;
+  }
+  
+  
+  /* =========================================================
+     EYES
+     ========================================================= */
+  
+  .mascot-eye {
+    position: absolute;
+  
+    top: 36px;
+  
+    width: 13px;
+    height: 16px;
+  
+    background: #352225;
+  
+    border-radius: 50%;
+  
+    overflow: hidden;
+  
+    transition:
+      transform 0.35s ease,
+      height 0.35s ease;
+  }
+  
+  .mascot-eye-left {
+    left: 24px;
+  }
+  
+  .mascot-eye-right {
+    right: 24px;
+  }
+  
+  .mascot-eye span {
+    position: absolute;
+  
+    top: 3px;
+    left: 3px;
+  
+    width: 4px;
+    height: 4px;
+  
+    background: #ffffff;
+  
+    border-radius: 50%;
+  }
+  
+  
+  /* =========================================================
+     NOSE + MOUTH
+     ========================================================= */
+  
+  .mascot-nose {
+    position: absolute;
+  
+    top: 51px;
+    left: 45px;
+  
+    width: 16px;
+    height: 11px;
+  
+    background: #392326;
+  
+    border-radius: 48% 48% 55% 55%;
+  
+    z-index: 4;
+  }
+  
+  .mascot-mouth {
+    position: absolute;
+  
+    top: 60px;
+    left: 43px;
+  
+    width: 20px;
+    height: 12px;
+  
+    border-bottom: 3px solid #392326;
+  
+    border-radius: 0 0 50% 50%;
+  
+    transition:
+      transform 0.3s ease,
+      border-radius 0.3s ease;
+  }
+  
+  .mascot-mouth span {
+    position: absolute;
+  
+    left: 6px;
+    top: 7px;
+  
+    width: 9px;
+    height: 5px;
+  
+    background: #d47c83;
+  
+    border-radius: 50%;
+  }
+  
+  .mascot-cheek {
+    position: absolute;
+  
+    top: 58px;
+  
+    width: 12px;
+    height: 7px;
+  
+    background: rgba(211, 117, 128, 0.22);
+  
+    border-radius: 50%;
+  }
+  
+  .mascot-cheek-left {
+    left: 13px;
+  }
+  
+  .mascot-cheek-right {
+    right: 13px;
+  }
+  
+  
+  /* =========================================================
+     BODY
+     ========================================================= */
+  
+  .mascot-neck {
+    position: absolute;
+  
+    top: 93px;
+    left: 64px;
+  
+    width: 23px;
+    height: 20px;
+  
+    background: #f4d7b8;
+  
+    z-index: 2;
+  }
+  
+  .mascot-body {
+    position: absolute;
+  
+    top: 103px;
+    left: 30px;
+  
+    width: 90px;
+    height: 73px;
+  
+    background: #8a4654;
+  
+    border-radius: 42% 42% 30% 30%;
+  
+    z-index: 3;
+  
+    box-shadow:
+      0 9px 16px rgba(63, 34, 35, 0.14);
+  }
+  
+  .mascot-collar {
+    position: absolute;
+  
+    top: 3px;
+    left: 25px;
+  
+    width: 40px;
+    height: 14px;
+  
+    background: #411c29;
+  
+    border-radius: 0 0 12px 12px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mascot-collar span {
+    color: #f6d7b5;
+  
+    font-size: 9px;
+  }
+  
+  
+  /* =========================================================
+     ARMS
+     ========================================================= */
+  
+  .mascot-arm {
+    position: absolute;
+  
+    top: 19px;
+  
+    width: 24px;
+    height: 55px;
+  
+    background: #f4d7b8;
+  
+    border: 2px solid rgba(78, 42, 39, 0.1);
+  
+    border-radius: 50%;
+  
+    transform-origin: top center;
+  
+    transition:
+      transform 0.45s ease;
+  }
+  
+  .mascot-arm-left {
+    left: -13px;
+  
+    transform: rotate(24deg);
+  }
+  
+  .mascot-arm-right {
+    right: -13px;
+  
+    transform: rotate(-24deg);
+  }
+  
+  .mascot-arm span {
+    position: absolute;
+  
+    bottom: -3px;
+    left: 3px;
+  
+    width: 15px;
+    height: 15px;
+  
+    background: #f4d7b8;
+  
+    border-radius: 50%;
+  }
+  
+  
+  /* =========================================================
+     FEET
+     ========================================================= */
+  
+  .mascot-foot {
+    position: absolute;
+  
+    bottom: 1px;
+  
+    width: 36px;
+    height: 22px;
+  
+    background: #f4d7b8;
+  
+    border-radius: 50%;
+  
+    z-index: 2;
+  }
+  
+  .mascot-foot-left {
+    left: 34px;
+  }
+  
+  .mascot-foot-right {
+    right: 34px;
+  }
+  
+  
+  /* =========================================================
+     MINI BRIEFCASE
+     ========================================================= */
+  
+  .mascot-briefcase {
+    position: absolute;
+  
+    right: 1px;
+    bottom: 25px;
+  
+    width: 35px;
+    height: 29px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    background: #6f3040;
+  
+    border: 2px solid rgba(255, 244, 232, 0.45);
+  
+    border-radius: 7px;
+  
+    z-index: 5;
+  
+    transform: rotate(5deg);
+  
+    box-shadow:
+      0 5px 10px rgba(63, 34, 35, 0.14);
+  }
+  
+  .mascot-briefcase::before {
+    content: "";
+  
+    position: absolute;
+  
+    top: -7px;
+  
+    width: 14px;
+    height: 8px;
+  
+    border: 2px solid currentColor;
+  
+    border-bottom: none;
+  
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .mascot-briefcase span {
+    color: #fff4e8;
+  
+    font-size: 8px;
+    font-weight: 800;
+  }
+  
+  
+  /* =========================================================
+     SPEECH BUBBLE
+     ========================================================= */
+  
+  .mascot-speech {
+    position: relative;
+  
+    z-index: 7;
+  
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    min-height: 34px;
+  
+    max-width: 330px;
+  
+    margin-top: 8px;
+    padding: 8px 15px;
+  
+    background: rgba(255, 250, 246, 0.72);
+  
+    border: 1px solid rgba(255, 255, 255, 0.45);
+  
+    border-radius: 999px;
+  
+    backdrop-filter: blur(8px);
+  
+    box-shadow:
+      0 7px 20px rgba(63, 34, 35, 0.08);
+  
+    animation: speech-appear 0.4s ease;
+  }
+  
+  .speech-dot {
+    flex: 0 0 auto;
+  
+    width: 7px;
+    height: 7px;
+  
+    border-radius: 50%;
+  
+    background: currentColor;
+  
+    animation: speech-dot-pulse 1.5s ease-in-out infinite;
+  }
+  
+  .speech-text {
+    font-size: 12px;
+    font-weight: 700;
+  
+    line-height: 1.3;
+  }
+  
+  @keyframes speech-appear {
+    from {
+      opacity: 0;
+      transform: translateY(5px) scale(0.97);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes speech-dot-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+  
+    50% {
+      transform: scale(1.35);
+    }
+  }
+  
+  
+  /* =========================================================
+     BASE MASCOT MOVEMENT
+     ========================================================= */
+  
+  @keyframes mascot-idle {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  
+    50% {
+      transform: translateY(-7px) rotate(-1deg);
+    }
+  }
+  
+  @keyframes mascot-shadow {
+    0%,
+    100% {
+      transform: scaleX(1);
+      opacity: 0.25;
+    }
+  
+    50% {
+      transform: scaleX(0.84);
+      opacity: 0.17;
+    }
+  }
+  
+  
+  /* =========================================================
+     HAPPY
+     ========================================================= */
+  
+  .mood-happy .career-mascot {
+    animation:
+      mascot-idle 3.2s ease-in-out infinite,
+      mascot-happy-bounce 4s ease-in-out infinite;
+  }
+  
+  @keyframes mascot-happy-bounce {
+    0%,
+    70%,
+    100% {
+      margin-top: 0;
+    }
+  
+    76% {
+      margin-top: -5px;
+    }
+  
+    82% {
+      margin-top: 0;
+    }
+  }
+  
+  .mood-happy .mascot-mouth {
+    transform: scaleY(1.15);
+  }
+  
+  .mood-happy .mascot-arm-left {
+    animation: tiny-wave-left 3.5s ease-in-out infinite;
+  }
+  
+  .mood-happy .mascot-arm-right {
+    animation: tiny-wave-right 3.5s ease-in-out infinite;
+  }
+  
+  @keyframes tiny-wave-left {
+    0%,
+    100% {
+      transform: rotate(24deg);
+    }
+  
+    50% {
+      transform: rotate(17deg);
+    }
+  }
+  
+  @keyframes tiny-wave-right {
+    0%,
+    100% {
+      transform: rotate(-24deg);
+    }
+  
+    50% {
+      transform: rotate(-17deg);
+    }
+  }
+  
+  
+  /* =========================================================
+     EXCITED
+     ========================================================= */
+  
+  .mood-excited .career-mascot {
+    animation: mascot-excited-jump 0.85s ease-in-out infinite;
+  }
+  
+  @keyframes mascot-excited-jump {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+  
+    35% {
+      transform: translateY(-18px) rotate(-2deg);
+    }
+  
+    60% {
+      transform: translateY(-7px) rotate(2deg);
+    }
+  }
+  
+  .mood-excited .mascot-ear-left {
+    transform: rotate(12deg);
+  }
+  
+  .mood-excited .mascot-ear-right {
+    transform: rotate(-12deg);
+  }
+  
+  .mood-excited .mascot-arm-left {
+    transform: rotate(-42deg);
+  }
+  
+  .mood-excited .mascot-arm-right {
+    transform: rotate(42deg);
+  }
+  
+  .mood-excited .mascot-eye {
+    transform: scaleY(1.12);
+  }
+  
+  .mood-excited .mascot-mouth {
+    transform: scale(1.18);
+  }
+  
+  
+  /* =========================================================
+     LOADING
+     ========================================================= */
+  
+  .mood-loading .career-mascot {
+    animation: mascot-loading-float 2.8s ease-in-out infinite;
+  }
+  
+  @keyframes mascot-loading-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+  
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .mood-loading .mascot-eye {
+    animation: loading-blink 2.2s ease-in-out infinite;
+  }
+  
+  @keyframes loading-blink {
+    0%,
+    42%,
+    48%,
+    100% {
+      transform: scaleY(1);
+    }
+  
+    45% {
+      transform: scaleY(0.15);
+    }
+  }
+  
+  .mood-loading .mascot-mouth {
+    transform: scaleX(0.65);
+  }
+  
+  .mood-loading .mascot-briefcase {
+    animation: briefcase-working 1.2s ease-in-out infinite;
+  }
+  
+  @keyframes briefcase-working {
+    0%,
+    100% {
+      transform: rotate(5deg);
+    }
+  
+    50% {
+      transform: rotate(-5deg);
+    }
+  }
+  
+  
+  /* =========================================================
+     SAD
+     ========================================================= */
+  
+  .mood-sad .career-mascot {
+    animation: mascot-sad-shake 0.8s ease-in-out infinite;
+  }
+  
+  @keyframes mascot-sad-shake {
+    0%,
+    100% {
+      transform: translateX(0) rotate(0deg);
+    }
+  
+    25% {
+      transform: translateX(-3px) rotate(-2deg);
+    }
+  
+    75% {
+      transform: translateX(3px) rotate(2deg);
+    }
+  }
+  
+  .mood-sad .mascot-eye {
+    height: 11px;
+    transform: rotate(8deg);
+  }
+  
+  .mood-sad .mascot-eye-left {
+    top: 40px;
+  }
+  
+  .mood-sad .mascot-eye-right {
+    top: 40px;
+  }
+  
+  .mood-sad .mascot-mouth {
+    transform: rotate(180deg) translateY(-3px);
+  }
+  
+  .mood-sad .mascot-ear-left {
+    transform: rotate(28deg);
+  }
+  
+  .mood-sad .mascot-ear-right {
+    transform: rotate(-28deg);
+  }
+  
+  .mood-sad .mascot-arm-left {
+    transform: rotate(42deg);
+  }
+  
+  .mood-sad .mascot-arm-right {
+    transform: rotate(-42deg);
+  }
+  
+  
+  /* =========================================================
+     SUCCESS
+     ========================================================= */
+  
+  .mood-success .career-mascot {
+    animation: mascot-success 0.9s ease-in-out infinite;
+  }
+  
+  @keyframes mascot-success {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+  
+    35% {
+      transform: translateY(-20px) rotate(-3deg) scale(1.03);
+    }
+  
+    65% {
+      transform: translateY(-8px) rotate(3deg) scale(1.01);
+    }
+  }
+  
+  .mood-success .mascot-arm-left {
+    animation: success-arm-left 0.7s ease-in-out infinite;
+  }
+  
+  .mood-success .mascot-arm-right {
+    animation: success-arm-right 0.7s ease-in-out infinite;
+  }
+  
+  @keyframes success-arm-left {
+    0%,
+    100% {
+      transform: rotate(-24deg);
+    }
+  
+    50% {
+      transform: rotate(-55deg);
+    }
+  }
+  
+  @keyframes success-arm-right {
+    0%,
+    100% {
+      transform: rotate(24deg);
+    }
+  
+    50% {
+      transform: rotate(55deg);
+    }
+  }
+  
+  .mood-success .mascot-mouth {
+    transform: scale(1.3);
+  }
+  
+  .mood-success .mascot-briefcase {
+    animation:
+      briefcase-working 0.7s ease-in-out infinite,
+      briefcase-success 1.4s ease-in-out infinite;
+  }
+  
+  @keyframes briefcase-success {
+    50% {
+      transform: translateY(-5px) rotate(8deg);
+    }
+  }
+  
+  
+  /* =========================================================
+     LIGHT THEME
+     Light mode mascot remains unchanged
+     ========================================================= */
+  
+  .app.light .animation-panel .mascot-glow {
+    background: #8a4654;
+  }
+  
+  .app.light .animation-panel .mascot-speech {
+    color: #682f3c;
+  }
+  
+  .app.light .animation-panel .floating-decoration {
+    color: #fff4e8;
+  }
+  
+  .app.light .animation-panel .companion-label {
+    color: hsl(345, 36%, 45%);
+  }
+  
+  
+  /* =========================================================
+     DARK THEME
+     Cyber / Purple Career Companion
+     ========================================================= */
+  
+  /* Mascot glow */
+  
+  .app.dark .animation-panel .mascot-glow {
+    background: #7954c4;
+  
+    opacity: 0.35;
+  
+    box-shadow:
+      0 0 35px rgba(164, 91, 233, 0.45);
+  }
+  
+  
+  /* Purple floppy ears */
+  
+  .app.dark .animation-panel .mascot-ear {
+    background: #120702;
+  
+    box-shadow:
+      0 0 16px rgba(255, 255, 255, 0.16);
+  }
+  
+  
+  /* Soft lavender mascot face */
+  
+  .app.dark .animation-panel .mascot-head {
+    background: #9c7363;
+  
+    border-color: rgba(68, 50, 37, 0.22);
+  
+    box-shadow:
+      0 8px 22px rgba(246, 245, 246, 0.2);
+  }
+  
+  
+  /* Lighter cyber face patch */
+  
+  .app.dark .animation-panel .mascot-face-patch {
+    background: #cea891;
+  }
+  
+  
+  /* Eyes */
+  
+  .app.dark .animation-panel .mascot-eye {
+    background: #1a1028;
+  }
+  
+  .app.dark .animation-panel .mascot-eye span {
+    background: #ffffff;
+  }
+  
+  
+  /* Nose */
+  
+  .app.dark .animation-panel .mascot-nose {
+    background: #21102f;
+  }
+  
+  
+  /* Mouth */
+  
+  .app.dark .animation-panel .mascot-mouth {
+    border-bottom-color: #21102f;
+  }
+  
+  .app.dark .animation-panel .mascot-mouth span {
+    background: #e492bc;
+  }
+  
+  
+  /* Neon pink cheeks */
+  
+  .app.dark .animation-panel .mascot-cheek {
+    background: rgba(235, 157, 197, 0.32);
+  }
+  
+  
+  /* Neck */
+  
+  .app.dark .animation-panel .mascot-neck {
+    background: #9b87cb;
+  }
+  
+  
+  /* Purple cyber outfit */
+  
+  .app.dark .animation-panel .mascot-body {
+    background: linear-gradient(
+      145deg,
+      #94dbf0,
+      #5370bd
+    );
+  
+    box-shadow:
+      0 9px 22px rgba(124, 58, 237, 0.3);
+  }
+  
+  
+  /* Dark glowing collar */
+  
+  .app.dark .animation-panel .mascot-collar {
+    background: #2a3674;
+  
+    box-shadow:
+      0 0 12px rgba(192, 132, 252, 0.25);
+  }
+  
+  .app.dark .animation-panel .mascot-collar span {
+    color: #e4c0ed;
+  }
+  
+  
+  /* Lavender arms */
+  
+  .app.dark .animation-panel .mascot-arm {
+    background: #9c7363;
+  
+    border-color: rgb(134, 90, 63);
+  }
+  
+  .app.dark .animation-panel .mascot-arm span {
+    background: #7c5842;
+  }
+  
+  
+  /* Lavender feet */
+  
+  .app.dark .animation-panel .mascot-foot {
+    background: #856255;
+  }
+  
+  
+  /* Purple glowing CV briefcase */
+  
+  .app.dark .animation-panel .mascot-briefcase {
+    background: #122761;
+  
+    color: #5ca0ca;
+  
+    border-color: rgba(98, 164, 181, 0.5);
+  
+    box-shadow:
+      0 5px 16px rgba(248, 245, 251, 0.3);
+  }
+  
+  .app.dark .animation-panel .mascot-briefcase span {
+    color: #f3e8ff;
+  }
+  
+  
+  /* Speech bubble */
+  
+  .app.dark .animation-panel .mascot-speech {
+    color: #c084fc;
+  
+    background: rgba(19, 13, 36, 0.72);
+  
+    border-color: rgba(192, 132, 252, 0.22);
+  
+    box-shadow:
+      0 7px 25px rgba(168, 85, 247, 0.14);
+  }
+  
+  
+  /* Decorative stars and hearts */
+  
+  .app.dark .animation-panel .floating-decoration {
+    color: #e9d5ff;
+  
+    text-shadow:
+      0 0 10px rgba(192, 132, 252, 0.3);
+  }
+  
+  
+  /* Career companion label */
+  
+  .app.dark .animation-panel .companion-label {
+    color: #d8b4fe;
+  }
+  
+  
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  
+  @media (max-width: 800px) {
+    .animation-panel .copilot-visual {
+      width: 190px;
+      height: 205px;
+    }
+  
+    .career-mascot {
+      transform: scale(0.9);
+    }
+  
+    .mascot-speech {
+      max-width: 280px;
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .animation-panel {
+      min-height: 480px;
+      padding: 35px 25px;
+    }
+  
+    .animation-panel .copilot-visual {
+      margin-top: 12px;
+    }
+  
+    .companion-label {
+      font-size: 9px;
+    }
+  
+    .mascot-speech {
+      max-width: 250px;
+  
+      padding: 7px 12px;
+    }
+  
+    .speech-text {
+      font-size: 11px;
+    }
+  }
+  
+  
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
+  
+  @media (prefers-reduced-motion: reduce) {
+    .career-mascot,
+    .mascot-glow,
+    .mascot-speech,
+    .floating-decoration,
+    .mascot-arm,
+    .mascot-eye,
+    .mascot-briefcase {
+      animation: none !important;
+      transition: none !important;
+    }
+  }

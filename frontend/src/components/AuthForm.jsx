@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
@@ -13,6 +14,18 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
 
   // Success message shown after signup
   const [success, setSuccess] = useState("");
+
+  // =========================
+  // SEND MOOD TO AUTH ANIMATION
+  // =========================
+
+  const setAuthMood = (mood) => {
+    window.dispatchEvent(
+      new CustomEvent("auth-mood", {
+        detail: mood,
+      })
+    );
+  };
 
   // =========================
   // HANDLES SIGNUP
@@ -34,8 +47,14 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
 
     if (!cleanEmail || !password.trim()) {
       setError("Please enter both email and password.");
+
+      setAuthMood("sad");
+
       return;
     }
+
+    // The request is starting
+    setAuthMood("loading");
 
     try {
       const response = await fetch(
@@ -66,6 +85,9 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
         setError(
           data.detail || "Could not create your account."
         );
+
+        setAuthMood("sad");
+
         return;
       }
 
@@ -76,6 +98,9 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       setSuccess(
         "Account created successfully! You can now log in."
       );
+
+      // Mascot celebrates successful account creation
+      setAuthMood("success");
 
       // Clear password
       setPassword("");
@@ -89,6 +114,8 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       setError(
         "Could not connect to the server. Make sure your backend is running."
       );
+
+      setAuthMood("sad");
     }
   };
 
@@ -112,8 +139,14 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
 
     if (!cleanEmail || !password.trim()) {
       setError("Please enter both email and password.");
+
+      setAuthMood("sad");
+
       return;
     }
+
+    // The request is starting
+    setAuthMood("loading");
 
     try {
       // OAuth2PasswordRequestForm expects:
@@ -152,6 +185,9 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
         setError(
           data.detail || "Invalid email or password."
         );
+
+        setAuthMood("sad");
+
         return;
       }
 
@@ -172,6 +208,9 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       // Remove the old key from the previous version
       localStorage.removeItem("token");
 
+      // Mascot celebrates before entering the dashboard
+      setAuthMood("success");
+
       // Tell App.jsx that login succeeded
       setIsLoggedIn(true);
 
@@ -183,6 +222,8 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       setError(
         "Could not connect to the server. Make sure your backend is running."
       );
+
+      setAuthMood("sad");
     }
   };
 
@@ -226,7 +267,6 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
           <p>Let's get back to the grind.</p>
 
           <form onSubmit={handleLogin}>
-
             <label>Email</label>
 
             <input
@@ -264,6 +304,8 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
                 setError("");
                 setSuccess("");
                 setIsLogin(false);
+
+                setAuthMood("excited");
               }}
             >
               Create one
@@ -327,6 +369,8 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
                 setError("");
                 setSuccess("");
                 setIsLogin(true);
+
+                setAuthMood("happy");
               }}
             >
               Log in
