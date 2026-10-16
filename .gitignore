@@ -10,3 +10,10 @@ __pycache__/
 # Node
 node_modules/
 dist/
+
+# System / OS
+.DS_Store
+*/.DS_Store
+
+# Local SQLite databases
+*.db

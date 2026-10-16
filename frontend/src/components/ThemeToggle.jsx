@@ -1,13 +1,17 @@
 function ThemeToggle({ theme, setTheme }) {
-    return (
-      <button
-        type="button"
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-        className="theme-toggle"
-       >
-        {theme === "light" ? "🌙" : "☀️"}
-       </button> 
-    );
+  const isLight = theme === "light";
+
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(isLight ? "dark" : "light")}
+      className="theme-toggle"
+      aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
+      title={`Switch to ${isLight ? "dark" : "light"} mode`}
+    >
+      {isLight ? "🌙" : "☀️"}
+    </button>
+  );
 }
 
 export default ThemeToggle;

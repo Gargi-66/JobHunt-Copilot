@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import API_BASE_URL from "../config";
 
 function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
   // =========================
@@ -58,7 +59,7 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
 
     try {
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/signup",
+        `${API_BASE_URL}/signup`,
         {
           method: "POST",
 
@@ -159,7 +160,7 @@ function AuthForm({ isLogin, setIsLogin, setIsLoggedIn }) {
       formData.append("password", password);
 
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/login",
+        `${API_BASE_URL}/login`,
         {
           method: "POST",
 

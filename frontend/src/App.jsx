@@ -57,38 +57,12 @@ function App() {
     <div className={`app ${theme}`}>
 
       {isLoggedIn ? (
-        <>
-          {/* =========================
-              DASHBOARD CONTROLS
-          ========================= */}
-
-          <div className="dashboard-top-controls">
-
-            <ThemeToggle
-              theme={theme}
-              setTheme={setTheme}
-            />
-
-            <button
-              type="button"
-              className="logout-button"
-              onClick={handleLogout}
-            >
-              Log out
-            </button>
-
-          </div>
-
-          {/* =========================
-              DASHBOARD
-          ========================= */}
-
-          <Dashboard
-            theme={theme}
-            setTheme={setTheme}
-            setIsLoggedIn={setIsLoggedIn}
-          />
-        </>
+        <Dashboard
+          theme={theme}
+          setTheme={setTheme}
+          setIsLoggedIn={setIsLoggedIn}
+          onLogout={handleLogout}
+        />
       ) : (
         <Auth
           theme={theme}

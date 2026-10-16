@@ -19,7 +19,7 @@ OAuth2_scheme = OAuth2PasswordBearer(
     tokenUrl="/login"
 )
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "local_development_secret_key_12345")
 
 # =========================
 # PASSWORD HASHING

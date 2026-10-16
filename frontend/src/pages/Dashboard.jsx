@@ -1,6 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import API_BASE_URL from "../config";
+import DashboardHeader from "../components/DashboardHeader";
 
-function Dashboard() {
+function Dashboard({ theme, setTheme, onLogout }) {
+  // =========================================================
+  // ACTIVE NAVIGATION TAB
+  // =========================================================
+  const [activeTab, setActiveTab] = useState("dashboard");
+
+  // =========================================================
+  // RESUME / CV STATE
+  // =========================================================
+  const [resumeText, setResumeText] = useState("");
+  const [resumeLoading, setResumeLoading] = useState(false);
+  const [resumeSaving, setResumeSaving] = useState(false);
+  const [resumeFeedback, setResumeFeedback] = useState({ message: "", type: "" });
+
   // =========================================================
   // APPLICATION STATE
   // =========================================================
@@ -50,6 +65,82 @@ function Dashboard() {
   const [analysisError, setAnalysisError] = useState("");
 
   // =========================================================
+  // FETCH RESUME
+  // =========================================================
+
+  const fetchResume = async () => {
+    try {
+      setResumeLoading(true);
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+
+      const response = await fetch(`${API_BASE_URL}/resume`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to load resume");
+      }
+
+      const data = await response.json();
+      if (data && data.resume && data.resume.resume_text) {
+        setResumeText(data.resume.resume_text);
+      }
+    } catch (err) {
+      console.error("Error fetching resume:", err);
+    } finally {
+      setResumeLoading(false);
+    }
+  };
+
+  const handleSaveResume = async () => {
+    if (!resumeText.trim()) {
+      setResumeFeedback({
+        message: "Please enter your resume text before saving.",
+        type: "error",
+      });
+      return;
+    }
+
+    try {
+      setResumeSaving(true);
+      setResumeFeedback({ message: "", type: "" });
+      const token = localStorage.getItem("access_token");
+
+      const response = await fetch(`${API_BASE_URL}/resume`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          resume_text: resumeText.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save resume");
+      }
+
+      const data = await response.json();
+      setResumeFeedback({
+        message: data.message || "Resume saved successfully!",
+        type: "success",
+      });
+    } catch (err) {
+      console.error("Error saving resume:", err);
+      setResumeFeedback({
+        message: "Failed to save resume. Please ensure the backend is running.",
+        type: "error",
+      });
+    } finally {
+      setResumeSaving(false);
+    }
+  };
+
+  // =========================================================
   // FETCH APPLICATIONS
   // =========================================================
 
@@ -58,7 +149,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/applications",
+        `${API_BASE_URL}/applications`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,6 +176,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchApplications();
+    fetchResume();
   }, []);
 
   // =========================================================
@@ -125,7 +217,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/applications",
+        `${API_BASE_URL}/applications`,
         {
           method: "POST",
 
@@ -186,7 +278,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        `https://job-hunt-copilot-backend.onrender.com/applications/${applicationId}`,
+        `${API_BASE_URL}/applications/${applicationId}`,
         {
           method: "PUT",
 
@@ -244,7 +336,7 @@ function Dashboard() {
       const token = localStorage.getItem("access_token");
 
       const response = await fetch(
-        `https://job-hunt-copilot-backend.onrender.com/applications/${applicationId}`,
+        `${API_BASE_URL}/applications/${applicationId}`,
         {
           method: "DELETE",
 
@@ -299,7 +391,7 @@ function Dashboard() {
       setInterviewPrepError("");
 
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/analyze-jd",
+        `${API_BASE_URL}/analyze-jd`,
         {
           method: "POST",
 
@@ -357,7 +449,7 @@ function Dashboard() {
       setInterviewPrep(null);
 
       const response = await fetch(
-        "https://job-hunt-copilot-backend.onrender.com/interview-prep",
+        `${API_BASE_URL}/interview-prep`,
         {
           method: "POST",
 
@@ -712,35 +804,190 @@ function Dashboard() {
     <div className="dashboard">
 
       {/* =====================================================
-          HEADER
+          PERSISTENT TOP HEADER & NAVIGATION
+      ===================================================== */}
+      <DashboardHeader
+        applicationsCount={stats.total}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        onAddApplicationClick={() => {
+          // Switch to dashboard tab and show form
+          if (activeTab !== "dashboard" && activeTab !== "applications") {
+            setActiveTab("dashboard");
+          }
+          setShowForm(true);
+        }}
+        theme={theme}
+        setTheme={setTheme}
+        onLogout={onLogout}
+      />
+
+      {/* =====================================================
+          CV MANAGER VIEW
+      ===================================================== */}
+      {activeTab === "cv-manager" && (
+        <section className="module-container">
+          <div className="cv-manager-card">
+            <div className="cv-manager-header">
+              <div>
+                <span className="placeholder-badge">DOCUMENT REPOSITORY</span>
+                <h2 className="placeholder-title">CV / Resume Manager</h2>
+                <p className="placeholder-description">
+                  Manage your primary resume. This resume is stored securely in your database and powers AI Job Description analysis and tailoring.
+                </p>
+              </div>
+              <button
+                type="button"
+                className="add-job-button"
+                onClick={handleSaveResume}
+                disabled={resumeSaving}
+              >
+                {resumeSaving ? "Saving..." : "Save Resume →"}
+              </button>
+            </div>
+
+            {resumeLoading ? (
+              <div className="loading-state">
+                <div className="loading-spinner" />
+                <p>Loading your saved resume...</p>
+              </div>
+            ) : (
+              <>
+                <textarea
+                  className="cv-manager-textarea"
+                  placeholder="Paste your plain text or Markdown resume content here (e.g. Work Experience, Skills, Education)..."
+                  value={resumeText}
+                  onChange={(e) => setResumeText(e.target.value)}
+                />
+
+                <div className="cv-manager-actions">
+                  <button
+                    type="button"
+                    className="save-application-button"
+                    onClick={handleSaveResume}
+                    disabled={resumeSaving}
+                    style={{ width: "auto", minWidth: "160px" }}
+                  >
+                    {resumeSaving ? "Saving..." : "Save Resume →"}
+                  </button>
+
+                  {resumeFeedback.message && (
+                    <span className={`cv-feedback-msg ${resumeFeedback.type}`}>
+                      {resumeFeedback.message}
+                    </span>
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* =====================================================
+          JOB LISTINGS VIEW (HONEST ROADMAP PLACEHOLDER)
+      ===================================================== */}
+      {activeTab === "job-listings" && (
+        <section className="module-container">
+          <div className="placeholder-view-card">
+            <span className="placeholder-badge">Roadmap Module</span>
+            <div className="placeholder-icon">💼</div>
+            <h2 className="placeholder-title">Job Listings</h2>
+            <p className="placeholder-description">
+              Direct job-board feed integration (LinkedIn, Indeed, remote boards) is currently scheduled for the next development phase. When live, you will be able to browse verified job openings and import them directly into your tracker with 1 click.
+            </p>
+            <div className="placeholder-features-grid">
+              <div className="placeholder-feature-item">
+                <h4>Verified Listings</h4>
+                <p>Aggregated software, design, and product postings with direct apply links.</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>1-Click Import</h4>
+                <p>Add any listing straight into your Applications tracker without manual typing.</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>Fit Scoring</h4>
+                <p>AI compares requirements against your saved CV before you apply.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* =====================================================
+          GOALS VIEW (HONEST ROADMAP PLACEHOLDER)
+      ===================================================== */}
+      {activeTab === "goals" && (
+        <section className="module-container">
+          <div className="placeholder-view-card">
+            <span className="placeholder-badge">Roadmap Module</span>
+            <div className="placeholder-icon">🎯</div>
+            <h2 className="placeholder-title">Application Goals & Targets</h2>
+            <p className="placeholder-description">
+              Weekly application targets and streak milestones will be backed by a persistent goals model in an upcoming milestone. Set your targets and maintain your search velocity.
+            </p>
+            <div className="placeholder-features-grid">
+              <div className="placeholder-feature-item">
+                <h4>Weekly Target</h4>
+                <p>Set a target number of high-quality applications each week.</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>Search Velocity</h4>
+                <p>Track your submission rate and response turnaround times over time.</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>Active Milestone</h4>
+                <p>You have submitted <strong>{stats.total}</strong> total applications so far!</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* =====================================================
+          PROFILE VIEW
+      ===================================================== */}
+      {activeTab === "profile" && (
+        <section className="module-container">
+          <div className="profile-view-card">
+            <span className="placeholder-badge">ACCOUNT OVERVIEW</span>
+            <div className="placeholder-icon">👤</div>
+            <h2 className="placeholder-title">User Account</h2>
+            <p className="placeholder-description">
+              Your session is authenticated and protected with a JSON Web Token (JWT).
+            </p>
+            <div className="placeholder-features-grid">
+              <div className="placeholder-feature-item">
+                <h4>Session Status</h4>
+                <p>Active and securely verified with backend.</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>Total Tracked</h4>
+                <p>{stats.total} {stats.total === 1 ? "application" : "applications"}</p>
+              </div>
+              <div className="placeholder-feature-item">
+                <h4>Appearance</h4>
+                <p>Currently using {theme} mode.</p>
+              </div>
+            </div>
+
+            <div style={{ marginTop: "32px", display: "flex", gap: "12px" }}>
+              <button
+                type="button"
+                className="add-job-button"
+                onClick={onLogout}
+                style={{ background: "#d93838", borderColor: "#b91c1c" }}
+              >
+                Log Out of Account
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* =====================================================
+          DASHBOARD WELCOME HEADER (Shown on dashboard tab)
       ===================================================== */}
 
-      <header className="dashboard-header">
-        <div>
-          <div className="dashboard-eyebrow">
-            YOUR JOB SEARCH
-          </div>
-
-          <h1>
-            Welcome back! <span>👋</span>
-          </h1>
-
-          <p>
-            Keep your applications organized.
-            Your next opportunity is out there.
-          </p>
-        </div>
-
-        <button
-          className="add-job-button"
-          onClick={() =>
-            setShowForm(!showForm)
-          }
-        >
-          <span>＋</span>
-          Add application
-        </button>
-      </header>
 
       {/* =====================================================
           ADD APPLICATION FORM
@@ -867,6 +1114,7 @@ function Dashboard() {
           STAT CARDS
       ===================================================== */}
 
+      {(activeTab === "dashboard" || activeTab === "analytics" || activeTab === "applications") && (
       <section className="stats-grid">
 
         <div className="stat-card total-stat">
@@ -950,11 +1198,13 @@ function Dashboard() {
         </div>
 
       </section>
+      )}
 
       {/* =====================================================
-          ANALYTICS
+          ANALYTICS: PIPELINE PROGRESSION
       ===================================================== */}
 
+      {activeTab === "analytics" && (
       <section className="analytics-grid">
 
         {/* ===================================================
@@ -1021,6 +1271,16 @@ function Dashboard() {
 
           </div>
         </div>
+
+      </section>
+      )}
+
+      {/* =====================================================
+          INTERVIEWS: AI JD ANALYZER & INTERVIEW PREP
+      ===================================================== */}
+
+      {activeTab === "interviews" && (
+      <section className="analytics-grid">
 
         {/* ===================================================
             JD ANALYZER
@@ -1276,11 +1536,13 @@ function Dashboard() {
         </div>
 
       </section>
+      )}
 
       {/* =====================================================
-          APPLICATIONS HEADER
+          APPLICATIONS TRACKER
       ===================================================== */}
 
+      {(activeTab === "dashboard" || activeTab === "applications") && (
       <section className="applications-section">
 
         <div className="applications-heading">
@@ -1426,6 +1688,7 @@ function Dashboard() {
         )}
 
       </section>
+      )}
 
     </div>
   );

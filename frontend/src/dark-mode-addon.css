@@ -1,0 +1,228 @@
+/* Job-Hunt Copilot: dark-mode polish add-on
+   All dashboard colour overrides are scoped to .app.dark.
+   Existing .app.light colour rules remain untouched. */
+
+/* Shared top controls: keeps theme switch and logout visible above the dashboard. */
+.dashboard-top-controls {
+  position: absolute;
+  top: 16px;
+  right: 28px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dashboard-top-controls .theme-toggle {
+  position: static;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(160, 120, 210,  0.38);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font-size: 19px;
+  line-height: 1;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.dashboard-top-controls .theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(160, 110, 230, 0.16);
+  border-color: rgba(175, 125, 245, 0.7);
+}
+
+.dashboard-top-controls .theme-toggle:focus-visible,
+.dashboard-top-controls .logout-button:focus-visible {
+  outline: 3px solid #22c7df;
+  outline-offset: 3px;
+}
+
+.dashboard-top-controls .logout-button {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid rgba(160, 120, 210, 0.28);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.dashboard-top-controls .logout-button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(160, 120, 210, 0.55);
+}
+
+/* Dark dashboard only — intentionally does not change light-mode colours. */
+.app.dark .dashboard {
+  color: #f5f2ff;
+  background:
+    radial-gradient(ellipse at 88% 4%, rgba(105, 47, 151, 0.30), transparent 34%),
+    radial-gradient(ellipse at 2% 92%, rgba(0, 157, 190, 0.13), transparent 30%),
+    #090713;
+}
+
+.app.dark .dashboard::before {
+  background: #8b43d6;
+  opacity: 0.23;
+}
+
+.app.dark .dashboard::after {
+  background: #079bb7;
+  opacity: 0.17;
+}
+
+.app.dark .dashboard-eyebrow,
+.app.dark .section-kicker {
+  color: #b58be8;
+  opacity: 1;
+}
+
+.app.dark .dashboard-title h1,
+.app.dark .analytics-heading h2,
+.app.dark .applications-heading h2,
+.app.dark .form-panel-heading h2 {
+  color: #faf8ff;
+}
+
+.app.dark .dashboard-subtitle {
+  color: #c3bbd4;
+  opacity: 1;
+}
+
+.app.dark .stat-card,
+.app.dark .analytics-card,
+.app.dark .add-application-panel,
+.app.dark .application-column,
+.app.dark .analysis-results,
+.app.dark .interview-prep-section,
+.app.dark .interview-prep-results {
+  background: linear-gradient(145deg, rgba(24, 17, 39, 0.96), rgba(16, 11, 29, 0.97));
+  border-color: rgba(145, 87, 200, 0.26);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+.app.dark .stat-card:hover,
+.app.dark .application-card:hover {
+  border-color: rgba(177, 116, 239, 0.55);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(159, 93, 225, 0.08);
+}
+
+.app.dark .stat-card-top > span:first-child,
+.app.dark .stat-card p,
+.app.dark .progress-copy p,
+.app.dark .empty-column p,
+.app.dark .loading-state p {
+  color: #aaa0bd;
+}
+
+.app.dark .stat-card strong,
+.app.dark .progress-copy h3,
+.app.dark .column-title h3,
+.app.dark .application-card-content h4 {
+  color: #f6f1ff;
+}
+
+.app.dark .search-wrapper,
+.app.dark .toolbar-select,
+.app.dark .form-field input,
+.app.dark .form-field select,
+.app.dark .jd-textarea,
+.app.dark .status-select {
+  color: #f1eaff;
+  background: #100b1c;
+  border-color: rgba(151, 93, 207, 0.38);
+}
+
+.app.dark .search-wrapper input,
+.app.dark .form-field input,
+.app.dark .form-field select {
+  color: #f1eaff;
+}
+
+.app.dark .search-wrapper input::placeholder,
+.app.dark .jd-textarea::placeholder {
+  color: #8f82a6;
+  opacity: 1;
+}
+
+.app.dark .search-wrapper:focus-within,
+.app.dark .toolbar-select:focus,
+.app.dark .form-field input:focus,
+.app.dark .form-field select:focus,
+.app.dark .jd-textarea:focus {
+  outline: none;
+  border-color: #a85df0;
+  box-shadow: 0 0 0 3px rgba(168, 93, 240, 0.15);
+}
+
+.app.dark .empty-column {
+  background: rgba(9, 6, 18, 0.34);
+  border-color: rgba(147, 93, 190, 0.25);
+}
+
+.app.dark .empty-icon {
+  color: #9b72c5;
+}
+
+.app.dark .application-card {
+  background: rgba(26, 18, 42, 0.98);
+  border-color: rgba(147, 93, 190, 0.28);
+}
+
+.app.dark .application-role,
+.app.dark .job-link,
+.app.dark .skills-list p,
+.app.dark .interview-question li {
+  color: #c3b9d3;
+}
+
+.app.dark .company-avatar,
+.app.dark .column-icon,
+.app.dark .application-count,
+.app.dark .total-badge {
+  background: rgba(151, 86, 213, 0.18);
+  color: #d4b4ff;
+}
+
+.app.dark .red-flags-list li {
+  color: #e6dceF;
+}
+
+@media (max-width: 640px) {
+  .dashboard-top-controls {
+    top: 12px;
+    right: 14px;
+    gap: 7px;
+  }
+
+  .dashboard-top-controls .theme-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .dashboard-top-controls .logout-button {
+    min-height: 38px;
+    padding: 0 11px;
+  }
+
+  .app .dashboard {
+    padding-top: 76px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-top-controls .theme-toggle,
+  .dashboard-top-controls .logout-button {
+    transition: none;
+  }
+}
